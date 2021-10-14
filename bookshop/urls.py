@@ -13,42 +13,28 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from os import path
-
-from django.conf.urls import url
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import include
+from django.urls import include, path
+from rest_framework.routers import DefaultRouter
+from product.views import ProductReviewViewset, ProductViewset
+from .yasg import urlpatterns as doc_urls
+
+
+router = DefaultRouter()
+router.register('reviews', ProductReviewViewset)
+router.register('products', ProductViewset)
 
 urlpatterns = [
-    path('admin/', include(admin.site.urls)),
-    path('cart/', include('cart.urls', namespace='cart')),
-    path('', include('product.urls', namespace='product')),
+    path('admin/', admin.site.urls),
+    path('api/v1/', include(router.urls)),
+    path('api/v1/', include('account.urls')),
+    #path('api/v1/', include('.urls'))
+    # path('api/v1/', include('product.urls')),
+    # path('api/v1/', include('order.urls'))
+    # 127.0.0.1:8000/api/v1/products/,
 ]
-
-# from django.contrib import admin
-# from django.urls import include, path
-# from rest_framework.routers import DefaultRouter
-# from product import urls
-# from product.views import ProductReviewViewset, ProductViewset
-# from django.conf.urls import url
-#
-# router = DefaultRouter()
-# router.register('reviews', ProductReviewViewset)
-# router.register('products', ProductViewset)
-#
-# urlpatterns = [
-#     # path('admin/', admin.site.urls),
-#     # path('api/v1/', include(router.urls)),
-#     # path('api/v1/', include('account.urls')),
-#     # path('cart/', include('cart.urls')),
-#     # path('', include('product.urls')),
-#     url(r'^admin/', include(admin.site.urls)),
-#     url(r'^cart/', include('cart.urls', namespace='cart')),
-#     url(r'^', include('shop.urls', namespace='shop')),
-# ]
-# path('api/v1/', include('order.urls'))
-# path('api/v1/', include('product.urls')),
-# path('api/v1/', include('order.urls'))
-# 127.0.0.1:8000/api/v1/products/,
-# path('cart/', include('cart.urls', namespace='cart')),
-# path('', include('bookshop.urls', namespace='bookshop')),
+urlpatterns += doc_urls
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

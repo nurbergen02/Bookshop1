@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     # installed app
     'product',
     'account',
-    'cart',
+
 
 
 
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
+
 
 
 

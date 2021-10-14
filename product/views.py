@@ -71,7 +71,3 @@ class ProductViewset(viewsets.ModelViewSet):
             reviews, many=True
         ).data
         return Response(serializer, status=200)
-
-
-# class ProductListView:
-#     pass

@@ -13,39 +13,28 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from os import path
 
-from django.conf.urls import url
 from django.contrib import admin
-from django.urls import include
+from django.urls import include, path
+from rest_framework.routers import DefaultRouter
+from product.views import ProductReviewViewset, ProductViewset
+
+router = DefaultRouter()
+router.register('reviews', ProductReviewViewset)
+router.register('products', ProductViewset)
 
 urlpatterns = [
-    path('admin/', include(admin.site.urls)),
-    path('cart/', include('cart.urls', namespace='cart')),
-    path('', include('product.urls', namespace='product')),
-]
+    path('admin/', admin.site.urls),
+    path('api/v1/', include(router.urls)),
+    path('api/v1/', include('account.urls')),
+    # path('cart/', include('cart.urls')),
+    # path('', include('product.urls')),
 
-# from django.contrib import admin
-# from django.urls import include, path
-# from rest_framework.routers import DefaultRouter
-# from product import urls
-# from product.views import ProductReviewViewset, ProductViewset
-# from django.conf.urls import url
-#
-# router = DefaultRouter()
-# router.register('reviews', ProductReviewViewset)
-# router.register('products', ProductViewset)
-#
-# urlpatterns = [
-#     # path('admin/', admin.site.urls),
-#     # path('api/v1/', include(router.urls)),
-#     # path('api/v1/', include('account.urls')),
-#     # path('cart/', include('cart.urls')),
-#     # path('', include('product.urls')),
-#     url(r'^admin/', include(admin.site.urls)),
-#     url(r'^cart/', include('cart.urls', namespace='cart')),
-#     url(r'^', include('shop.urls', namespace='shop')),
-# ]
+
+    # url(r'^admin/', admin.site.urls),
+    # # url(r'^cart/', include('cart.urls', namespace='cart')),
+    # url(r'^', include('shop.urls', namespace='shop')),
+]
 # path('api/v1/', include('order.urls'))
 # path('api/v1/', include('product.urls')),
 # path('api/v1/', include('order.urls'))

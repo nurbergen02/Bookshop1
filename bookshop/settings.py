@@ -35,9 +35,10 @@ INSTALLED_APPS = [
     # installed app
     'product',
     'account',
-    #'likes',
+    'likes',
     'cart',
-    #'likes.apps.LikesConfig',
+    'likes.apps.LikesConfig',
+
     # libraries,
     'rest_framework',
     'rest_framework.authtoken',

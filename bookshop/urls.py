@@ -30,7 +30,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include(router.urls)),
     path('api/v1/', include('account.urls')),
-    #path('api/v1/', include('.urls'))
+    # path('likes/', include('likes.ser'))
+    # path('products/<int:pk>/likes/', include('likes.services')),
+    # path('api/v1/', include('.urls'))
     # path('api/v1/', include('product.urls')),
     # path('api/v1/', include('order.urls'))
     # 127.0.0.1:8000/api/v1/products/,

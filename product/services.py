@@ -1,5 +1,5 @@
 from django.contrib.contenttypes.models import ContentType
-from .models import Like
+from likes.models import Like
 from django.contrib.auth.models import User
 
 

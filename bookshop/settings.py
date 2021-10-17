@@ -9,9 +9,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Build paths inside the project likes this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -23,7 +22,6 @@ SECRET_KEY = 'django-insecure-p$_nt#0e!nwpb8#k^kc&zgc4xes=+9wiyn3o&@*f#t*gm+0iqz
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -37,18 +35,14 @@ INSTALLED_APPS = [
     # installed app
     'product',
     'account',
-
-
-
-
+    #'likes',
+    'cart',
+    #'likes.apps.LikesConfig',
     # libraries,
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
-
-
-
-
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -81,7 +75,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'bookshop.wsgi.application'
 
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication'
@@ -95,7 +88,6 @@ REST_FRAMEWORK = {
         'django_filters.rest_framework.DjangoFilterBackend',
     ),
 }
-
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -111,7 +103,6 @@ DATABASES = {
 
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -131,7 +122,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -145,7 +135,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
@@ -156,7 +145,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'account.User'
+AUTH_USER_MODEL = 'account.USER'
 CART_SESSION_ID = 'cart'
 # email configs
 
@@ -165,4 +154,5 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "knur21205@gmail.com",
-EMAIL_HOST_PASSWORD = 'nurbergen1274'
+EMAIL_HOST_PASSWORD = "nurbergen1274"
+MEDIA_URL = '/media/'

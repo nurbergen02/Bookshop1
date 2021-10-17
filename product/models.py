@@ -2,9 +2,23 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from model_utils import Choices
 from model_utils.fields import StatusField
-
+from django.contrib.contenttypes.fields import GenericRelation
+from django.db import models
+# from likes.models import Like
 
 User = get_user_model()
+
+
+# class Product(models.Model):
+#     body = models.CharField(max_length=140)
+#     likes = GenericRelation(Like)
+
+    # def __str__(self):
+    #     return self.body
+    #
+    # @property
+    # def total_likes(self):
+    #     return self.like.count()
 
 
 class CreatedatModel(models.Model):

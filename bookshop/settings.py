@@ -36,17 +36,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # installed app
     'product',
+    'likes',
     'account',
-
 
 
     # libraries,
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
-
-
-
 ]
 
 MIDDLEWARE = [
@@ -83,9 +80,6 @@ WSGI_APPLICATION = 'bookshop.wsgi.application'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication'
-    ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'account.permissions.IsActivePermission'
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 5,
@@ -154,7 +148,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'account.User'
+AUTH_USER_MODEL = 'account.USER'
 CART_SESSION_ID = 'cart'
 # email configs
 
@@ -162,5 +156,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "knur21205@gmail.com",
-EMAIL_HOST_PASSWORD = 'nurbergen1274'
+EMAIL_HOST_USER = 'arlensejtaliev@gmail.com'
+EMAIL_HOST_PASSWORD = 'arlen1221@mail.ru'

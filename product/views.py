@@ -25,17 +25,11 @@ class ProductReviewViewset(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def get_serializer_context(self):
-        """
-        Передаем request в сериализаторы чтобы оттуда получить юзера
-        """
         return {
             'request': self.request
         }
 
     def get_serializer(self, *args, **kwargs):
-        """
-        Добавляем в наши аргументы  те данные которые мы возращаем в get_serializer_context
-        """
         kwargs['context'] = self.get_serializer_context()
         return self.serializer_class(*args, **kwargs)
 
@@ -48,7 +42,6 @@ class ProductViewset(viewsets.ModelViewSet):
     ]
     filterset_fields = ['price', 'title']
     search_fields = ['title', 'id', 'description']
-    # permission_classes = [permissions.IsAdminUser]
 
     def get_permissions(self):
         if self.action in ['create', 'update', 'partial_update', 'destroy']:
@@ -65,7 +58,6 @@ class ProductViewset(viewsets.ModelViewSet):
     @action(['GET'], detail=True)
     def reviews(self, request, pk=None):
         product = self.get_object()
-        # reviews = ProductReview.objects.filter(product=product)
         reviews = product.reviews.all()
         serializer = ProductReviewSerializer(
             reviews, many=True

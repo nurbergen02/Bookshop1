@@ -27,17 +27,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include(router.urls)),
     path('api/v1/', include('account.urls')),
-    # path('cart/', include('cart.urls')),
-    # path('', include('product.urls')),
-
-
-    # url(r'^admin/', admin.site.urls),
-    # # url(r'^cart/', include('cart.urls', namespace='cart')),
-    # url(r'^', include('shop.urls', namespace='shop')),
-]
-# path('api/v1/', include('order.urls'))
-# path('api/v1/', include('product.urls')),
-# path('api/v1/', include('order.urls'))
-# 127.0.0.1:8000/api/v1/products/,
-# path('cart/', include('cart.urls', namespace='cart')),
-# path('', include('bookshop.urls', namespace='bookshop')),
+    ]

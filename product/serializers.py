@@ -6,19 +6,10 @@ user = get_user_model()
 
 
 class ProductListSerializer(serializers.ModelSerializer):
-    """
-        Класс для перевода типов данных Python в json формат
-    """
 
     class Meta:
-        """
-            Класс для передачи дополнительных данных
-        """
         model = Book
-        # fields = ('id','title', 'price', 'status')
         exclude = ("description", "image", "created_at")
-        # fields = '__all__'
-        # fields = ('title','status','description','price','image')
 
 
 class ProductDetailSerializer(serializers.ModelSerializer):

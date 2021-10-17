@@ -1,16 +1,10 @@
-from django.shortcuts import render
 from django.core.mail import send_mail
 
-
-def send_activation_code(email, activation_code):
-    message = f"""
-        Congratulations! Вы зарегестрированы на нашем сайте. Пройдите активацию вашего аккаунта, отправив нам этот 
-        код: {activation_code}
-    """
+def send_activations_code(email, activation_code):
+    message = f'Поздравляем с регистрацией на сайте. Ваш код для активации аккаунта: {activation_code}'
     send_mail(
-        'Активация аккаунта',
-        message,
-        'test@gmail.com',
-        [email]
-
+         'Активация аккаунта',
+         message,
+         '123@gmail.com',
+         [email]
     )

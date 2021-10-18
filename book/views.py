@@ -42,7 +42,7 @@ class BookViewset(viewsets.ModelViewSet):
         filters.DjangoFilterBackend,
         rest_filters.SearchFilter
     ]
-    filterset_fields = ['price', 'title']
+    filterset_fields = ['price', 'title', 'status']
     search_fields = ['title', 'description']
 
     def get_permissions(self):

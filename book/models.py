@@ -16,7 +16,7 @@ class Book(CreatedatModel):
         title = models.CharField(max_length=50, unique=True)
         author = models.CharField(max_length=50)
         price = models.DecimalField(max_digits=10, decimal_places=2)
-        image = models.ImageField(upload_to='products', null=True, blank=True)
+        image = models.ImageField(upload_to='books', null=True, blank=True)
         genre = models.CharField(max_length=50, null=True)
         status = StatusField()
         description = models.TextField()

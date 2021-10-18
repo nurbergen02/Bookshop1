@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.utils.crypto import get_random_string
-from django.core.mail import send_mail
 
 class UserManager(BaseUserManager):
     def _create(self, email, password, **extra_fields):
@@ -48,14 +47,3 @@ class User(AbstractBaseUser):
         code = get_random_string(10)
         self.activation_code = code
         self.save()
-
-    def send_activations_code(email, activation_code):
-        message = f"""
-        Успех... {activation_code}
-        """
-        send_mail(
-            'Активация аккаунта',
-            message,
-            '123@gmail.com',
-            [email]
-        )

@@ -35,6 +35,7 @@ class BookCreateSerializer(serializers.ModelSerializer):
 
 
 class BookReviewSerializer(serializers.ModelSerializer):
+    username = serializers.ReadOnlyField(source='username.name')
     book_title = serializers.SerializerMethodField("get_book_title")
 
     class Meta:
@@ -47,7 +48,7 @@ class BookReviewSerializer(serializers.ModelSerializer):
 
     def validate_book(self, book):
         if self.Meta.model.objects.filter(book=book).exists():
-            raise serializers.ValidationError("Вы уже оставляли отзыв на данный продукт")
+            raise serializers.ValidationError("Вы уже оставляли отзыв на данную книгу")
         return book
 
     def validate_rating(self, rating):
@@ -57,17 +58,17 @@ class BookReviewSerializer(serializers.ModelSerializer):
             )
         return rating
 
-    def to_representation(self, instance):
-        representation = super().to_representation(instance)
+    def create(self, validated_data):
         request = self.context.get('request')
-        if request == None:
-            pass
-        elif not request.user.is_anonymous:
-            representation['author'] = request.user.name
-        return representation
+        review = BookReview.objects.create(
+            username=request.user,
+            **validated_data
+        )
+        return review
 
 
 class BookLikesSerializer(serializers.ModelSerializer):
+    username = serializers.ReadOnlyField(source='username.name')
     book_title = serializers.SerializerMethodField("get_book_title")
 
     def get_book_title(self, book_likes):
@@ -78,16 +79,36 @@ class BookLikesSerializer(serializers.ModelSerializer):
         model = BookLike
         fields = "__all__"
 
-    def validate_product(self, book):
-        if self.Meta.model.objects.filter(book=book).exists() == True:
-            raise serializers.ValidationError("Вы уже лайкали данный продукт")
+    def validate_book(self, book):
+        if self.Meta.model.objects.filter(book=book).exists():
+            raise serializers.ValidationError("Вы уже лайкали данную книгу")
         return book
 
-    def to_representation(self, instance):
-        representation = super().to_representation(instance)
+    def create(self, validated_data):
         request = self.context.get('request')
-        if request == None:
-            pass
-        elif not request.user.is_anonymous:
-            representation['author'] = request.user.name
-        return representation
+        like = BookLike.objects.create(
+            username=request.user,
+            **validated_data
+        )
+        return like
+
+
+class BookCartSerializer(serializers.ModelSerializer):
+    book_title = serializers.SerializerMethodField("get_book_title")
+    username = serializers.ReadOnlyField(source='username.name')
+
+    def get_book_title(self, book_cart):
+        title = book_cart.book.title
+        return title
+
+    class Meta:
+        model = BookCart
+        fields = "__all__"
+
+    def create(self, validated_data):
+        request = self.context.get('request')
+        cart = BookCart.objects.create(
+            username=request.user,
+            **validated_data
+        )
+        return cart

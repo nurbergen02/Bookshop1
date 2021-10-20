@@ -1,7 +1,5 @@
 from .serializers import *
 from rest_framework import viewsets, permissions
-from rest_framework.decorators import action
-from rest_framework.response import Response
 from django_filters import rest_framework as filters
 from rest_framework import filters as rest_filters
 
@@ -57,15 +55,20 @@ class BookViewset(viewsets.ModelViewSet):
             return BookDetailSerializer
         return BookCreateSerializer
 
-    @action(['GET'], detail=True)
-    def refuse(self, request, pk=None):
-        book = self.get_object()
-        reviews = book.reviews.all()
-        serializer1 = BookReviewSerializer(
-            reviews, many=True
-        ).data
-        likes = book.likes.all()
-        serializer2 = BookLikesSerializer(
-            likes, many=True
-        ).data
-        return Response(serializer1, serializer2, status=200)
+
+class BookCartViewSet(viewsets.ModelViewSet):
+    def get_queryset(self, username=None):
+        user = Book.objects.get(username=username)
+        queryset = Book.filter(username=user)
+        return queryset
+    serializer_class = BookCartSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def get_serializer_context(self):
+        return {
+            "request": self.request
+        }
+
+    def get_serializer(self, *args, **kwargs):
+        kwargs['context'] = self.get_serializer_context()
+        return self.serializer_class(*args, **kwargs)

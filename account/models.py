@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.utils.crypto import get_random_string
 
+
 class UserManager(BaseUserManager):
     def _create(self, email, password, **extra_fields):
         if not email:
@@ -20,6 +21,7 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_active', True)
         return self._create(email, password, **extra_fields)
+
 
 class User(AbstractBaseUser):
     email = models.EmailField(primary_key=True)

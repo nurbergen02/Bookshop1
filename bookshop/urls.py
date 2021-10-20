@@ -5,11 +5,13 @@ from book.views import *
 
 router = DefaultRouter()
 router.register('reviews', BookReviewViewset)
-router.register('products', BookViewset)
+router.register('books', BookViewset)
 router.register('likes', BookLikesViewset)
+router.register('cart', BookCartViewSet, basename='Book')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include(router.urls)),
-    path('api/v1/', include('account.urls')),
+    path('api/v1/', include('account.urls'))
     ]

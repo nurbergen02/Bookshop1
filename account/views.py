@@ -7,6 +7,7 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from .permissions import IsActivePermission
 
+
 class RegistrationView(APIView):
     def post(self, request):
         data = request.data
@@ -17,6 +18,7 @@ class RegistrationView(APIView):
                 "Аккаунт успешно создан", status=201
             )
 
+
 class ActivationView(APIView):
     def post(self, request):
         serializer = ActivationSerializer(data=request.data)
@@ -25,6 +27,7 @@ class ActivationView(APIView):
             return Response(
                 "Аккаунт успешно активирован", status=200
             )
+
 
 class LoginView(ObtainAuthToken):
     serializer_class = LoginSerializer
@@ -38,8 +41,9 @@ class LogoutView(APIView):
         Token.objects.filter(user=user).delete()
         return Response("Вы успешно вышли из своего аккаунта")
 
+
 class ChangePasswordView(APIView):
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [IsAuthenticated, ]
 
     def post(self, request):
         serializer = ChangePasswordSerializer(
@@ -52,12 +56,14 @@ class ChangePasswordView(APIView):
             serializer.set_new_password()
             return Response('Status: 200. Пароль успешно изменён')
 
+
 class ForgotPasswordView(APIView):
     def post(self, request):
         serializer = ForgotPasswordSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.send_verification_email()
             return Response('Вам выслали сообщение для восстановления пароля на почту')
+
 
 class ForgotPassCompleteView(APIView):
     def post(self, request):

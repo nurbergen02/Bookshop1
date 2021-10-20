@@ -1,3 +1,6 @@
+from rest_framework.decorators import api_view
+from rest_framework.views import APIView
+
 from .serializers import *
 from rest_framework import viewsets, permissions
 from django_filters import rest_framework as filters
@@ -57,10 +60,8 @@ class BookViewset(viewsets.ModelViewSet):
 
 
 class BookCartViewSet(viewsets.ModelViewSet):
-    def get_queryset(self, username=None):
-        user = Book.objects.get(username=username)
-        queryset = Book.filter(username=user)
-        return queryset
+    def get_queryset(self):
+        return BookCart.objects.filter(username=self.request.user)
     serializer_class = BookCartSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
